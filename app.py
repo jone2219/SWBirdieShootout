@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -21,26 +21,32 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300
 db = SQLAlchemy(app)
 
 
-class ScoreEntry(db.Model):
-    __tablename__ = 'Players'
-    id = db.Column(db.Integer, primary_key=True)
-    player = db.Column(db.String(200), unique=True)
+# class ScoreEntry(db.Model):
+#     __tablename__ = 'Players'
+#     id = db.Column(db.Integer, primary_key=True)
+#     player = db.Column(db.String(200), unique=True)
 
-    # finish scores table
-    __tablename__ = 'Scores'
-    player = db.Column(db.String(200))
+#     # finish scores table
+#     __tablename__ = 'Scores'
+#     player = db.Column(db.String(200))
 
-    def __init__(self, player, date, hole1-18):
-        self.player = player
-        # etc
+#     def __init__(self, player, date, hole1-18):
+#         self.player = player
+#         # etc
 
 
-@app.route('/')
+@app.route('/')  # this is shorthand for navigating to the web app's root URL
 def index():
     return render_template('index.html')
 
 
-@app.route('/submit', methods=['POST'])
+# this would be like going to SWBirdieShoot/foo ---- and then things happen
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
+
+@app.route('/submit', methods=['POST'])  # /submit is a new subpage
 def submit():
     if request.method == 'POST':
         player = request.form['PlayerName']
@@ -72,8 +78,10 @@ def submit():
 
         print(player, date, h1, h2, h3, h4, h5, h6, h7, h8,
               h9, h10, h11, h12, h13, h14, h15, h16, h17, h18)
+
         # this is temporary and for example only - change this to some other Success page later
-        return render_template('users.html')
+        # return render_template('users.html')
+        return redirect(url_for('dashboard'))
 
 
 if __name__ == '__main__':

@@ -1,191 +1,181 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.html" %}
+<!-- extends the layout file-->
+{% block page_content %}
+<!-- this page's content is declared as page_content and is included in the layout.html file -->
 
-<head>
-  <meta charset="UTF-8" /> <!-- Sets character set-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Handles scaling of page on different sized devices -->
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link rel="stylesheet" href="../static/style.css" />
-  <title>Stonewater Country Club Birdie Shootout</title> <!-- This is the title in the browser tab -->
-</head>
+<div class="container">
+  <h1>Annual Birdie Shootout</h1>
+  <img src="../static/SW_Logo.png" alt="SW" class="logo" />
+  {% if message %}
+  <p class="message">
+    {{ message | safe }}
+  </p>
+  {% endif %}
+  <form action="/submit" method="POST">
+    <div class="form-group">
+      <h3>Player Name</h3>
+      <select name="PlayerName" required>
+        <!-- This needs to be data-driven and come from the DB table -->
+        <option value="">Select your name</option>
+        <option>Brian Jones </option>
+        <option>Lance Williams</option>
+      </select>
+      <a href="users.html">Register a new player</a>
+    </div>
 
-<body>
-  <div class="container">
-    <h1>Annual Birdie Shootout</h1>
-    <img src="../static/SW_Logo.png" alt="SW" class="logo" />
-    {% if message %}
-    <p class="message">
-      {{ message | safe }}
-    </p>
-    {% endif %}
-    <form action="/submit" method="POST">
-      <div class="form-group">
-        <h3>Player Name</h3>
-        <select name="PlayerName" required>
-          <!-- This needs to be data-driven and come from the DB table -->
-          <option value="">Select your name</option>
-          <option>Brian Jones </option>
-          <option>Lance Williams</option>
-        </select>
-        <a href="users.html">Register a new player</a>
+    <div>
+      <h3>Date Played</h3>
+      <input type="date" name="date_played" min="2020-01-01" max="2025-12-31" required>
+    </div>
+
+    <div class="form-group">
+      <h3>Enter your scores for each hole</h3>
+      <div>
+        <label><b>Hole 1: </b></label>
+        <input type="radio" name="Hole1" value="B" /> Birdie
+        <input type="radio" name="Hole1" value="E" /> Eagle
+        <input type="radio" name="Hole1" value="A" /> Albatross
+        <input type="radio" name="Hole1" value="O" checked /> Other
       </div>
 
       <div>
-        <h3>Date Played</h3>
-        <input type="date" name="date_played" min="2020-01-01" max="2025-12-31" required>
+        <label><b>Hole 2: </b></label>
+        <input type="radio" name="Hole2" value="B" /> Birdie
+        <input type="radio" name="Hole2" value="E" /> Eagle
+        <input type="radio" name="Hole2" value="A" /> Albatross
+        <input type="radio" name="Hole2" value="O" checked /> Other
       </div>
 
-      <div class="form-group">
-        <h3>Enter your scores for each hole</h3>
-        <div>
-          <label><b>Hole 1: </b></label>
-          <input type="radio" name="Hole1" value="B" /> Birdie
-          <input type="radio" name="Hole1" value="E" /> Eagle
-          <input type="radio" name="Hole1" value="A" /> Albatross
-          <input type="radio" name="Hole1" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 2: </b></label>
-          <input type="radio" name="Hole2" value="B" /> Birdie
-          <input type="radio" name="Hole2" value="E" /> Eagle
-          <input type="radio" name="Hole2" value="A" /> Albatross
-          <input type="radio" name="Hole2" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 3: </b></label>
-          <input type="radio" name="Hole3" value="B" /> Birdie
-          <input type="radio" name="Hole3" value="E" /> Eagle
-          <input type="radio" name="Hole3" value="A" /> Albatross
-          <input type="radio" name="Hole3" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 4: </b></label>
-          <input type="radio" name="Hole4" value="B" /> Birdie
-          <input type="radio" name="Hole4" value="E" /> Eagle
-          <input type="radio" name="Hole4" value="A" /> Albatross
-          <input type="radio" name="Hole4" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 5: </b></label>
-          <input type="radio" name="Hole5" value="B" /> Birdie
-          <input type="radio" name="Hole5" value="E" /> Eagle
-          <input type="radio" name="Hole5" value="A" /> Albatross
-          <input type="radio" name="Hole5" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 6: </b></label>
-          <input type="radio" name="Hole6" value="B" /> Birdie
-          <input type="radio" name="Hole6" value="E" /> Eagle
-          <input type="radio" name="Hole6" value="A" /> Albatross
-          <input type="radio" name="Hole6" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 7: </b></label>
-          <input type="radio" name="Hole7" value="B" /> Birdie
-          <input type="radio" name="Hole7" value="E" /> Eagle
-          <input type="radio" name="Hole7" value="A" /> Albatross
-          <input type="radio" name="Hole7" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 8: </b></label>
-          <input type="radio" name="Hole8" value="B" /> Birdie
-          <input type="radio" name="Hole8" value="E" /> Eagle
-          <input type="radio" name="Hole8" value="A" /> Albatross
-          <input type="radio" name="Hole8" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 9: </b></label>
-          <input type="radio" name="Hole9" value="B" /> Birdie
-          <input type="radio" name="Hole9" value="E" /> Eagle
-          <input type="radio" name="Hole9" value="A" /> Albatross
-          <input type="radio" name="Hole9" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 10: </b></label>
-          <input type="radio" name="Hole10" value="B" /> Birdie
-          <input type="radio" name="Hole10" value="E" /> Eagle
-          <input type="radio" name="Hole10" value="A" /> Albatross
-          <input type="radio" name="Hole10" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 11: </b></label>
-          <input type="radio" name="Hole11" value="B" /> Birdie
-          <input type="radio" name="Hole11" value="E" /> Eagle
-          <input type="radio" name="Hole11" value="A" /> Albatross
-          <input type="radio" name="Hole11" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 12: </b></label>
-          <input type="radio" name="Hole12" value="B" /> Birdie
-          <input type="radio" name="Hole12" value="E" /> Eagle
-          <input type="radio" name="Hole12" value="A" /> Albatross
-          <input type="radio" name="Hole12" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 13: </b></label>
-          <input type="radio" name="Hole13" value="B" /> Birdie
-          <input type="radio" name="Hole13" value="E" /> Eagle
-          <input type="radio" name="Hole13" value="A" /> Albatross
-          <input type="radio" name="Hole13" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 14: </b></label>
-          <input type="radio" name="Hole14" value="B" /> Birdie
-          <input type="radio" name="Hole14" value="E" /> Eagle
-          <input type="radio" name="Hole14" value="A" /> Albatross
-          <input type="radio" name="Hole14" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 15: </b></label>
-          <input type="radio" name="Hole15" value="B" /> Birdie
-          <input type="radio" name="Hole15" value="E" /> Eagle
-          <input type="radio" name="Hole15" value="A" /> Albatross
-          <input type="radio" name="Hole15" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 16: </b></label>
-          <input type="radio" name="Hole16" value="B" /> Birdie
-          <input type="radio" name="Hole16" value="E" /> Eagle
-          <input type="radio" name="Hole16" value="A" /> Albatross
-          <input type="radio" name="Hole16" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 17: </b></label>
-          <input type="radio" name="Hole17" value="B" /> Birdie
-          <input type="radio" name="Hole17" value="E" /> Eagle
-          <input type="radio" name="Hole17" value="A" /> Albatross
-          <input type="radio" name="Hole17" value="O" checked /> Other
-        </div>
-
-        <div>
-          <label><b>Hole 18: </b></label>
-          <input type="radio" name="Hole18" value="B" /> Birdie
-          <input type="radio" name="Hole18" value="E" /> Eagle
-          <input type="radio" name="Hole18" value="A" /> Albatross
-          <input type="radio" name="Hole18" value="O" checked /> Other
-        </div>
-
+      <div>
+        <label><b>Hole 3: </b></label>
+        <input type="radio" name="Hole3" value="B" /> Birdie
+        <input type="radio" name="Hole3" value="E" /> Eagle
+        <input type="radio" name="Hole3" value="A" /> Albatross
+        <input type="radio" name="Hole3" value="O" checked /> Other
       </div>
-      <input type="submit" value="Submit" class="btn" />
-    </form>
-  </div>
-</body>
 
-</html>
+      <div>
+        <label><b>Hole 4: </b></label>
+        <input type="radio" name="Hole4" value="B" /> Birdie
+        <input type="radio" name="Hole4" value="E" /> Eagle
+        <input type="radio" name="Hole4" value="A" /> Albatross
+        <input type="radio" name="Hole4" value="O" checked /> Other
+      </div>
+
+      <div>
+        <label><b>Hole 5: </b></label>
+        <input type="radio" name="Hole5" value="B" /> Birdie
+        <input type="radio" name="Hole5" value="E" /> Eagle
+        <input type="radio" name="Hole5" value="A" /> Albatross
+        <input type="radio" name="Hole5" value="O" checked /> Other
+      </div>
+
+      <div>
+        <label><b>Hole 6: </b></label>
+        <input type="radio" name="Hole6" value="B" /> Birdie
+        <input type="radio" name="Hole6" value="E" /> Eagle
+        <input type="radio" name="Hole6" value="A" /> Albatross
+        <input type="radio" name="Hole6" value="O" checked /> Other
+      </div>
+
+      <div>
+        <label><b>Hole 7: </b></label>
+        <input type="radio" name="Hole7" value="B" /> Birdie
+        <input type="radio" name="Hole7" value="E" /> Eagle
+        <input type="radio" name="Hole7" value="A" /> Albatross
+        <input type="radio" name="Hole7" value="O" checked /> Other
+      </div>
+
+      <div>
+        <label><b>Hole 8: </b></label>
+        <input type="radio" name="Hole8" value="B" /> Birdie
+        <input type="radio" name="Hole8" value="E" /> Eagle
+        <input type="radio" name="Hole8" value="A" /> Albatross
+        <input type="radio" name="Hole8" value="O" checked /> Other
+      </div>
+
+      <div>
+        <label><b>Hole 9: </b></label>
+        <input type="radio" name="Hole9" value="B" /> Birdie
+        <input type="radio" name="Hole9" value="E" /> Eagle
+        <input type="radio" name="Hole9" value="A" /> Albatross
+        <input type="radio" name="Hole9" value="O" checked /> Other
+      </div>
+
+      <div>
+        <label><b>Hole 10: </b></label>
+        <input type="radio" name="Hole10" value="B" /> Birdie
+        <input type="radio" name="Hole10" value="E" /> Eagle
+        <input type="radio" name="Hole10" value="A" /> Albatross
+        <input type="radio" name="Hole10" value="O" checked /> Other
+      </div>
+
+      <div>
+        <label><b>Hole 11: </b></label>
+        <input type="radio" name="Hole11" value="B" /> Birdie
+        <input type="radio" name="Hole11" value="E" /> Eagle
+        <input type="radio" name="Hole11" value="A" /> Albatross
+        <input type="radio" name="Hole11" value="O" checked /> Other
+      </div>
+
+      <div>
+        <label><b>Hole 12: </b></label>
+        <input type="radio" name="Hole12" value="B" /> Birdie
+        <input type="radio" name="Hole12" value="E" /> Eagle
+        <input type="radio" name="Hole12" value="A" /> Albatross
+        <input type="radio" name="Hole12" value="O" checked /> Other
+      </div>
+
+      <div>
+        <label><b>Hole 13: </b></label>
+        <input type="radio" name="Hole13" value="B" /> Birdie
+        <input type="radio" name="Hole13" value="E" /> Eagle
+        <input type="radio" name="Hole13" value="A" /> Albatross
+        <input type="radio" name="Hole13" value="O" checked /> Other
+      </div>
+
+      <div>
+        <label><b>Hole 14: </b></label>
+        <input type="radio" name="Hole14" value="B" /> Birdie
+        <input type="radio" name="Hole14" value="E" /> Eagle
+        <input type="radio" name="Hole14" value="A" /> Albatross
+        <input type="radio" name="Hole14" value="O" checked /> Other
+      </div>
+
+      <div>
+        <label><b>Hole 15: </b></label>
+        <input type="radio" name="Hole15" value="B" /> Birdie
+        <input type="radio" name="Hole15" value="E" /> Eagle
+        <input type="radio" name="Hole15" value="A" /> Albatross
+        <input type="radio" name="Hole15" value="O" checked /> Other
+      </div>
+
+      <div>
+        <label><b>Hole 16: </b></label>
+        <input type="radio" name="Hole16" value="B" /> Birdie
+        <input type="radio" name="Hole16" value="E" /> Eagle
+        <input type="radio" name="Hole16" value="A" /> Albatross
+        <input type="radio" name="Hole16" value="O" checked /> Other
+      </div>
+
+      <div>
+        <label><b>Hole 17: </b></label>
+        <input type="radio" name="Hole17" value="B" /> Birdie
+        <input type="radio" name="Hole17" value="E" /> Eagle
+        <input type="radio" name="Hole17" value="A" /> Albatross
+        <input type="radio" name="Hole17" value="O" checked /> Other
+      </div>
+
+      <div>
+        <label><b>Hole 18: </b></label>
+        <input type="radio" name="Hole18" value="B" /> Birdie
+        <input type="radio" name="Hole18" value="E" /> Eagle
+        <input type="radio" name="Hole18" value="A" /> Albatross
+        <input type="radio" name="Hole18" value="O" checked /> Other
+      </div>
+
+    </div>
+    <input type="submit" value="Submit" class="btn" />
+  </form>
+</div>
+{% endblock %}
